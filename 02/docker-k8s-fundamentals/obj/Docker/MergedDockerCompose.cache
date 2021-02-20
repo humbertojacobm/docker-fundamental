@@ -1,0 +1,16 @@
+services:
+  globomantics.identityserver:
+    build:
+      context: C:\Users\ladmin\Documents\docker-fundamentals\02\docker-k8s-fundamentals
+      dockerfile: Globomantics.IdentityServer/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: globomanticsidentityserver
+    ports:
+    - target: 80
+    - target: 443
+    volumes:
+    - C:\Users\ladmin\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\ladmin\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+version: '3.4'
