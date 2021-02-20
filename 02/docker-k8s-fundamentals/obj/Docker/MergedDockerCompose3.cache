@@ -11,7 +11,7 @@ services:
     entrypoint: tail -f /dev/null
     environment:
       ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
-      ASPNETCORE_URLS: http://*.5000
+      ASPNETCORE_URLS: http://*:5000
       DOTNET_USE_POLLING_FILE_WATCHER: '1'
       NUGET_FALLBACK_PACKAGES: ''
     image: globomanticsidentityserver:dev
