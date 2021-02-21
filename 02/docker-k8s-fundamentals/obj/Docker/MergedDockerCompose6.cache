@@ -1,0 +1,19 @@
+services:
+  globomantics.identityserver:
+    build:
+      context: C:\Users\ladmin\Documents\docker-fundamentals\02\docker-k8s-fundamentals
+      dockerfile: Globomantics.IdentityServer/Dockerfile
+    environment:
+      ASPNETCORE_URLS: http://*:5000
+    image: globomanticsidentityserver
+    ports:
+    - published: 5000
+      target: 5000
+  reverseproxy:
+    build:
+      context: C:\Users\ladmin\Documents\docker-fundamentals\02\docker-k8s-fundamentals
+      dockerfile: nginx/nginx.Dockerfile
+    depends_on:
+      globomantics.identityserver:
+        condition: service_started
+version: '3.4'
