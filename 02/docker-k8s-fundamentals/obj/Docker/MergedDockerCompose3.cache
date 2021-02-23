@@ -37,7 +37,7 @@ services:
       ACCEPT_EULA: "Y"
     image: datalust/seq
     ports:
-    - published: 5341
+    - published: 5342
       target: 80
     restart: unless-stopped
   reverseproxy:
