@@ -11,7 +11,7 @@ services:
     entrypoint: tail -f /dev/null
     environment:
       ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
-      ASPNETCORE_URLS: http://*.5000
+      ASPNETCORE_URLS: http://*:5000
       DOTNET_USE_POLLING_FILE_WATCHER: '1'
       NUGET_FALLBACK_PACKAGES: ''
     image: globomanticsidentityserver:dev
@@ -32,4 +32,14 @@ services:
     - C:\Users\ladmin\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
     - C:\Users\ladmin\.nuget\packages:/root/.nuget/packages:ro
     - C:\Users\ladmin\Documents\docker-fundamentals\02\docker-k8s-fundamentals:/src:rw
+  reverseproxy:
+    build:
+      context: C:\Users\ladmin\Documents\docker-fundamentals\02\docker-k8s-fundamentals
+      dockerfile: nginx/nginx.Dockerfile
+    depends_on:
+      globomantics.identityserver:
+        condition: service_started
+    ports:
+    - published: 44395
+      target: 443
 version: '3.4'
