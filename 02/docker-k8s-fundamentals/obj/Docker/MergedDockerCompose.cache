@@ -9,14 +9,29 @@ services:
     ports:
     - published: 5000
       target: 5000
+  globomantics.ui:
+    build:
+      context: C:\Users\ladmin\Documents\docker-fundamentals\02\docker-k8s-fundamentals
+      dockerfile: Globomantics.Core/Dockerfile
+    environment:
+      ASPNETCORE_URLS: http://*:5005
+    ports:
+    - published: 5005
+      target: 5005
   globoseq:
     environment:
       ACCEPT_EULA: "Y"
     image: datalust/seq
     ports:
-    - published: 5341
+    - published: 5342
       target: 80
     restart: unless-stopped
+  globosmtp:
+    image: rnwood/smtp4dev
+    ports:
+    - published: 5010
+      target: 80
+    restart: always
   reverseproxy:
     build:
       context: C:\Users\ladmin\Documents\docker-fundamentals\02\docker-k8s-fundamentals
