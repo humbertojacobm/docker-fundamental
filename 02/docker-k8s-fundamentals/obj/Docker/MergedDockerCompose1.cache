@@ -1,3 +1,5 @@
+networks:
+  globonet: {}
 services:
   globomantics.identityserver:
     build:
@@ -21,6 +23,8 @@ services:
         dotnet); then kill $$PID; fi"
       com.microsoft.visualstudio.debuggee.program: dotnet
       com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    networks:
+      globonet: {}
     ports:
     - published: 5000
       target: 5000
@@ -54,6 +58,8 @@ services:
         dotnet); then kill $$PID; fi"
       com.microsoft.visualstudio.debuggee.program: dotnet
       com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    networks:
+      globonet: {}
     ports:
     - published: 5005
       target: 5005
@@ -69,12 +75,16 @@ services:
     environment:
       ACCEPT_EULA: "Y"
     image: datalust/seq
+    networks:
+      globonet: {}
     ports:
     - published: 5342
       target: 80
     restart: unless-stopped
   globosmtp:
     image: rnwood/smtp4dev
+    networks:
+      globonet: {}
     ports:
     - published: 5010
       target: 80
@@ -86,7 +96,12 @@ services:
     depends_on:
       globomantics.identityserver:
         condition: service_started
+    networks:
+      globonet:
+        aliases:
+        - id-local.globomantics.com
+        - www-local.globomantics.com
     ports:
     - published: 44395
-      target: 443
+      target: 44395
 version: '3.4'
